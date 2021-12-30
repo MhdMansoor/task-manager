@@ -1,0 +1,96 @@
+table {
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0 4px 15px -8px rgba(0, 0, 0, 0.4);
+  border-collapse: collapse;
+}
+
+thead tr {
+  background: #ef3d65;
+  color: #fff;
+}
+
+table td,
+table th {
+  padding: 16px 32px;
+  text-align: center;
+}
+
+table tr {
+  border-bottom: 1px solid #eee;
+}
+table button {
+  cursor: pointer;
+  transition: ease 0.1s;
+}
+
+table button:hover {
+  color: #ef3d65;
+}
+
+table {
+  margin-bottom: 50px;
+}
+
+table tr td:last-child {
+  display: flex;
+  justify-content: space-around;
+}
+
+table .dropdown {
+  cursor: pointer;
+}
+
+table .dropbtn:hover {
+  color: initial;
+}
+
+table .dropbtn {
+  color: #000;
+}
+
+table .dropdown-content {
+  top: 25px;
+  right: 75px;
+}
+
+table .dropdown-content button {
+  width: 100%;
+}
+
+table .active {
+  color: green;
+}
+
+table .inactive {
+  color: #c73e1d;
+}
+
+@media only screen and (max-width: 767px) {
+  table thead {
+    display: none;
+  }
+
+  table td {
+    display: block;
+  }
+
+  table td::before {
+    content: attr(data-heading) ": ";
+    font-weight: bold;
+    color: #ef3d65;
+  }
+
+  table tr td:last-child:before {
+    content: "";
+  }
+
+  table tr td:last-child {
+    justify-content: center;
+  }
+
+  table button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

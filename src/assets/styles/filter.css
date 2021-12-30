@@ -1,0 +1,106 @@
+/* Filter */
+
+.filter {
+  box-shadow: 0 4px 15px -8px rgba(0, 0, 0, 0.4);
+  padding: 15px 30px;
+  margin-right: 30px;
+}
+
+.filter h3 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.filter h3,
+.filter-row {
+  border-bottom: 1px solid #eee;
+}
+
+.filter-row:last-child {
+  border: none;
+}
+
+.filter p {
+  padding-top: 15px;
+  font-weight: bold;
+}
+
+.filter h3 {
+  color: #ef3d65;
+}
+
+.filter-button {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.filter-button button {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: ease 0.3s;
+  border-radius: 5px;
+  width: 50%;
+  justify-content: center;
+}
+
+.filter input {
+  width: 100%;
+}
+
+.filter .form-group select,
+.filter .select-arrow {
+  width: 100%;
+}
+
+.filter-button button:first-child {
+  background: #ef3d65;
+  color: #fff;
+  margin-right: 7.5px;
+}
+
+.filter-button button:last-child {
+  border: 1px solid #ef3d65;
+  color: #ef3d65;
+  background: #fff;
+  margin-left: 7.5px;
+}
+
+.filter {
+  margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 767px) {
+  .filter {
+    margin-right: initial;
+  }
+
+  .filter .form-group {
+    margin-right: initial;
+  }
+
+  .filter-button {
+    display: block;
+  }
+
+  .filter-button button {
+    width: 100%;
+  }
+
+  .filter-button button:first-child {
+    margin-bottom: 15px;
+  }
+
+  .filter-button button:first-child,
+  .filter-button button:last-child {
+    margin-left: initial;
+    margin-right: initial;
+  }
+}

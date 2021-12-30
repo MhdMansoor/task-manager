@@ -1,0 +1,196 @@
+.homepage-banner {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.banner-left-cover {
+  background: #000;
+  height: 150%;
+  position: fixed;
+  width: 50%;
+  left: 0;
+}
+
+.banner-right-cover {
+  background: #fff;
+  height: 100%;
+  position: absolute;
+  width: 50%;
+  right: 0;
+}
+
+.form-page {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.homepage-banner .addtask-form {
+  margin: 5% auto;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+
+.select-arrow {
+  position: relative;
+  width: 350px;
+}
+
+.select-arrow span {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
+
+form {
+  margin-top: 50px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  color: #414042;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  height: 40px;
+  width: 350px;
+  border-radius: 4px;
+  border: 0.7px solid #bcbec0;
+  padding: 12px 15px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  background: #fff;
+  color: #414042;
+}
+
+.form-group input::placeholder {
+  color: #414042;
+}
+
+.form-group input[type="submit"] {
+  background: #ef3d65;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  color: #fff;
+  box-shadow: none;
+  border: none;
+  height: 40px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: ease 0.3s;
+}
+
+.form-group input[type="submit"]:hover {
+  opacity: 0.7;
+}
+
+.formpassword-group {
+  position: relative;
+}
+
+.error {
+  margin-top: 5px;
+  color: #c73e1d;
+  font-size: 12px;
+}
+
+.addtask-form {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.form-border {
+  border: 0.7px solid #bcbec0;
+  padding: 30px;
+  border-radius: 16px;
+}
+
+.password-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.navigation-link {
+  text-decoration: none;
+  color: #ef3d65;
+}
+
+.navigation-link:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 767px) {
+  .homepage-banner {
+    height: initial;
+  }
+  .banner-left-cover {
+    display: none;
+  }
+  .banner-right-cover {
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+  }
+
+  .banner-right {
+    position: initial;
+    margin-bottom: 0;
+  }
+
+  .form-page {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: initial;
+    left: initial;
+    top: initial;
+    transform: initial;
+    width: 100%;
+  }
+
+  .addtask-form {
+    position: initial;
+    transform: initial;
+    left: initial;
+    margin-bottom: 5%;
+  }
+
+  .select-arrow {
+    width: 100%;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+}
