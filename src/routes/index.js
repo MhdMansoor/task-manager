@@ -1,18 +1,31 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "../Login";
 import Signup from "../Signup";
 import Dashboard from "../Dashboard";
 import Add from "../Add";
+import PrivateRoute from "../PrivateRoute";
 
 const RouterComponent = () => {
   return (
     <Router>
-      <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/add" element={<Add />} />
-      </Routes>
+      <Switch>
+        <Route exact path="/" component={(props) => <Login {...props} />} />
+        <Route
+          exact
+          path="/signup"
+          component={(props) => <Signup {...props} />}
+        />
+        <PrivateRoute
+          exact
+          path="/dashboard"
+          component={(props) => <Dashboard {...props} />}
+        />
+        <PrivateRoute
+          exact
+          path="/add"
+          component={(props) => <Add {...props} />}
+        />
+      </Switch>
     </Router>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./assets/styles/common.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { saveCookie } from "./utils/cookie-helper";
@@ -19,11 +19,8 @@ const Signup = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
-  const [fileError, setFileError] = useState({
-    show: false,
-    msg: "",
-  });
-  let navigate = useNavigate();
+
+  let history = useHistory();
 
   const toggleNewPassword = () => {
     setPasswordShown(!passwordShown);
@@ -33,7 +30,7 @@ const Signup = () => {
     setSelectedFile(event.target.files[0]);
   };
 
-  console.log(selectedFile, "file");
+  // console.log(selectedFile, "file");
 
   const toggleConfirmPassword = () => {
     setConfirmPasswordShown(!confirmPasswordShown);
@@ -65,13 +62,14 @@ const Signup = () => {
     formData.append("profileImage", selectedFile);
     formData.append("password", values.setpassword);
     formData.append("confirmpassword", values.confirmpassword);
-    console.log(formData);
+    // console.log(formData);
     const { data, status, error } = await signup(formData);
     if (error) {
       toast.error("Sign up failed, please try again!");
     } else if (status === 200 && data) {
-      saveCookie("userid", data.user.id);
-      navigate("/dashboard");
+      saveCookie("userid", data.user_id);
+      saveCookie("token", data.authToken);
+      history.push("/dashboard");
     }
   };
 
@@ -84,6 +82,9 @@ const Signup = () => {
   const validate = (values) => {
     const errors = {};
     const regExEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regExPassword = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    );
     if (!values.name) {
       errors.name = "Name Required!";
     }
@@ -95,8 +96,9 @@ const Signup = () => {
 
     if (!values.setpassword) {
       errors.setpassword = "Password is Required!";
-    } else if (values.setpassword.length < 4) {
-      errors.setpassword = "password should be in 4 to 10 characters";
+    } else if (!regExPassword.test(values.setpassword)) {
+      errors.setpassword = `Password must be Min 8 letters and Uppercase,
+      )}  Lowercase, Special Character, Numeric`;
     }
     if (!values.confirmpassword) {
       errors.confirmpassword = "Password is Required!";
@@ -148,7 +150,7 @@ const Signup = () => {
                   <input
                     type={passwordShown ? "text" : "password"}
                     name="setpassword"
-                    placeholder="eg. ei342#MT"
+                    placeholder="eg. Welcome@123"
                     value={formValues.setpassword}
                     onChange={handleChange}
                   />
@@ -172,7 +174,7 @@ const Signup = () => {
                   <input
                     type={confirmPasswordShown ? "text" : "password"}
                     name="confirmpassword"
-                    placeholder="eg. ei342#MT"
+                    placeholder="eg. Welcome@123"
                     value={formValues.confirmpassword}
                     onChange={handleChange}
                   />

@@ -1,5 +1,5 @@
 import axios from "axios";
-//import { forceLogout } from './user-helper';
+import { forceLogout } from "./user-helper";
 import { getCookie } from "./cookie-helper";
 export const sendRequest = async (args) => {
   try {
@@ -26,9 +26,9 @@ export const sendRequest = async (args) => {
     return response;
   } catch (error) {
     let status = error?.response?.status;
-    // if (error.response !== undefined && error.response.status === 401) {
-    //   forceLogout();
-    // }
+    if (error.response !== undefined && error.response.status === 401) {
+      forceLogout();
+    }
     // All Network Error we are sending status code 5XX
     if (!status) {
       status = 502;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./assets/styles/common.css";
 import "./assets/styles/form.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { login } from "./utils/auth-services";
-import { saveCookie, deleteCookie } from "./utils/cookie-helper";
+import { saveCookie } from "./utils/cookie-helper";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  let navigate = useNavigate();
+  let history = useHistory();
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -42,12 +42,10 @@ const Login = () => {
       console.log(status);
       toast.error("Email or Password is wrong!");
     } else if (status === 200 && data) {
-      // console.log('LOGIN:', data.user.id);
-
       saveCookie("token", data.authToken);
       saveCookie("user", data.user);
       saveCookie("userid", data.user._id);
-      navigate("/dashboard");
+      history.push("/dashboard");
     }
   };
 
