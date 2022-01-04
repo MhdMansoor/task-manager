@@ -19,6 +19,7 @@ const Signup = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
+  const [fileError, setFileError] = useState("");
 
   let history = useHistory();
 
@@ -41,10 +42,12 @@ const Signup = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // console.log(formValues);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-
+    setFileError(validateFile(selectedFile));
     setIsSubmit(true);
   };
 
@@ -74,10 +77,14 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (
+      Object.keys(formErrors).length === 0 &&
+      fileError === undefined &&
+      isSubmit
+    ) {
       register(formValues, selectedFile);
     }
-  }, [formErrors]);
+  }, [formErrors, fileError]);
 
   const validate = (values) => {
     const errors = {};
@@ -106,6 +113,14 @@ const Signup = () => {
       errors.confirmpassword = "Password does not match";
     }
     return errors;
+  };
+
+  const validateFile = (fileValue) => {
+    var error;
+    if (fileValue === undefined) {
+      error = "File upload Required!";
+    }
+    return error;
   };
 
   return (
@@ -141,7 +156,12 @@ const Signup = () => {
               </div>
               <div className="form-group">
                 <label>File Upload</label>
-                <input type="file" name="file" onChange={changeHandler} />
+                <input
+                  type="file"
+                  name="profileImage"
+                  onChange={changeHandler}
+                />
+                <p className="error">{fileError}</p>
               </div>
 
               <div className="form-group">
