@@ -1,14 +1,18 @@
+import React, { useEffect, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { createproject, getuser } from "../utils/projecr-services";
 import { useHistory } from "react-router-dom";
+import { createproject, getuser } from "../utils/projecr-services";
 import toast, { Toaster } from "react-hot-toast";
-import { useEffect, useState } from "react";
-import { createtask, edittask } from "../utils/task-services";
-
-const AddForm = (props) => {
-  const { initialValues, ...rest } = props;
+const ProjectForm = () => {
   let history = useHistory();
-
+  const initialValues = {
+    projectName: "",
+    projectDescription: "",
+    startDate: "",
+    endDate: "",
+    status: "",
+    developer: "",
+  };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [devArray, setDevArray] = useState(null);
@@ -39,51 +43,27 @@ const AddForm = (props) => {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
-  const createTask = async (values) => {
-    const taskData = {
+  const createProject = async (values) => {
+    const projectData = {
       projectName: values.projectName,
-      taskName: values.taskName,
+      projectDescription: values.projectDescription,
       startDate: values.startDate,
       endDate: values.endDate,
       status: values.status,
       developer: values.developer.toString(),
     };
-    const { data, status, error } = await createtask(taskData);
+    const { data, status, error } = await createproject(projectData);
 
     if (error) {
       console.log(error);
-      toast.error("Task creation failed");
+      toast.error("Project creation failed");
     } else if (status === 201 && data) {
-      history.push("/dashboard");
-    }
-  };
-  const updateTask = async (values) => {
-    const taskData = {
-      projectName: values.projectName,
-      taskName: values.taskName,
-      startDate: values.startDate,
-      endDate: values.endDate,
-      status: values.status,
-      developer: values.developer.toString(),
-    };
-    const { data, status, error } = await edittask(taskData, values.id);
-
-    if (error) {
-      console.log(error);
-      toast.error("Task update failed");
-    } else if (status === 201 && data) {
-      history.push("/dashboard");
+      history.push("/task");
     }
   };
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      //createTask(formValues);
-      //console.log(formValues);
-      if (formValues.id) {
-        updateTask(formValues);
-      } else {
-        createTask(formValues);
-      }
+      createProject(formValues);
     }
   }, [formErrors]);
 
@@ -93,8 +73,8 @@ const AddForm = (props) => {
     if (!values.projectName) {
       errors.projectName = "Project Name Required!";
     }
-    if (!values.taskName) {
-      errors.taskName = "Task Name Required!";
+    if (!values.projectDescription) {
+      errors.projectDescription = "Project Descriptionis Required!";
     }
     if (!values.startDate) {
       errors.startDate = "StartDate is Required!";
@@ -113,7 +93,7 @@ const AddForm = (props) => {
 
   return (
     <div className="addtask-form form-border">
-      <h1>Task</h1>
+      <h1>Project</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Project Name</label>
@@ -127,22 +107,22 @@ const AddForm = (props) => {
           <p className="error">{formErrors.projectName}</p>
         </div>
         <div className="form-group">
-          <label>Task Name</label>
+          <label>Project Description</label>
           <input
             type="text"
-            name="taskName"
-            placeholder="Eg: Task Name."
-            value={formValues.taskName}
+            name="projectDescription"
+            placeholder="Eg: Project is used blockchain tech."
+            value={formValues.projectDescription}
             onChange={handleChange}
           />
-          <p className="error">{formErrors.taskName}</p>
+          <p className="error">{formErrors.projectDescription}</p>
         </div>
         <div className="form-group">
           <label>Start Date</label>
           <input
             type="datetime-local"
             name="startDate"
-            value={formValues.startDate.substring(0, 16)}
+            value={formValues.startDate}
             onChange={handleChange}
           />
           <p className="error">{formErrors.startDate}</p>
@@ -153,7 +133,7 @@ const AddForm = (props) => {
             type="datetime-local"
             name="endDate"
             min={formValues.startDate}
-            value={formValues.endDate.substring(0, 16)}
+            value={formValues.endDate}
             onChange={handleChange}
           />
           <p className="error">{formErrors.endDate}</p>
@@ -167,8 +147,9 @@ const AddForm = (props) => {
               onChange={handleChange}
             >
               <option value="">Project Status</option>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
+              <option value="Start">Start</option>
+              <option value="Pendding">Pending</option>
+              <option value="Finished">Finished</option>
             </select>
             <span>
               <KeyboardArrowDownIcon />
@@ -201,11 +182,11 @@ const AddForm = (props) => {
         </div>
 
         <div className="form-group">
-          <input type="submit" value="Add Task" />
+          <input type="submit" value="Add Project" />
         </div>
       </form>
     </div>
   );
 };
 
-export default AddForm;
+export default ProjectForm;

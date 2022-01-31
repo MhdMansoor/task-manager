@@ -7,6 +7,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { deleteCookie } from "../utils/cookie-helper";
 import { toast, Toaster } from "react-hot-toast";
+import { PasswordOutlined } from "@mui/icons-material";
 
 const Navbar = () => {
   const [isShown, setIsShown] = useState(false);
@@ -24,6 +25,9 @@ const Navbar = () => {
     history.push("/");
     toast.success("Logged out Successfully!");
   };
+  const changePassword = () => {
+    history.push("/reset_password");
+  };
 
   return (
     <header className="navbar container">
@@ -36,6 +40,9 @@ const Navbar = () => {
           <Link to="/" className="drop-link">
             <AccountCircleIcon /> &nbsp;Profile
           </Link>
+          <div className="drop-link" onClick={changePassword}>
+            <PasswordOutlined /> &nbsp;Change
+          </div>
           <div className="drop-link" onClick={logout}>
             <LogoutIcon />
             &nbsp; Logout

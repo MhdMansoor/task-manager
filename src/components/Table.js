@@ -1,9 +1,15 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useHistory } from "react-router-dom";
 import "../assets/styles/table.css";
 
-const Table = () => {
+const Table = (props) => {
+  const { taskData, deleteTask, ...rest } = props;
+  let history = useHistory();
+  const editTask = (data) => {
+    history.push("/add", { ...data });
+  };
   return (
     <table>
       <thead>
@@ -19,7 +25,7 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
+        {/* <tr>
           <td data-heading="SI.NO">1</td>
           <td data-heading="Project Name">Project Name</td>
           <td data-heading="Task Name">Task Name</td>
@@ -139,7 +145,45 @@ const Table = () => {
               </button>
             </div>
           </td>
-        </tr>
+        </tr> */}
+        {taskData.length > 0 ? (
+          taskData.map((ele, index) => (
+            <tr key={index}>
+              <td data-heading="SI.NO">{index + 1}</td>
+              <td data-heading="Project Name">{ele.projectName}</td>
+              <td data-heading="Task Name">{ele.taskName}</td>
+              <td data-heading="Status" className={ele.status}>
+                {ele.status}
+              </td>
+              <td dta-heading="Progress">Progress</td>
+              <td data-heading="Completion Date">
+                {Date(ele.endDate)
+                  .split(" ")
+                  .splice(1, 3)
+                  .toString()
+                  .replace(/,/g, " ")}
+              </td>
+              <td data-heading="Project Assignee">{ele.developer.name}</td>
+              <td className="dropdown">
+                <button className="dropbtn">
+                  <MoreVertIcon />
+                </button>
+                <div className="dropdown-content">
+                  <button className="btn" onClick={() => editTask(ele)}>
+                    <EditIcon /> &nbsp;Edit
+                  </button>
+                  <button className="btn" onClick={() => deleteTask(ele._id)}>
+                    <DeleteIcon /> &nbsp;Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr className="no-data">
+            <td colSpan={"8"}>No Data Found</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
