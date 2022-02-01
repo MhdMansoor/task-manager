@@ -8,7 +8,7 @@ const Table = (props) => {
   const { taskData, deleteTask, ...rest } = props;
   let history = useHistory();
   const editTask = (data) => {
-    history.push("/add", { ...data });
+    history.push(`/task/edit/${data._id}`, { ...data });
   };
   return (
     <table>

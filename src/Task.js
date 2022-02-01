@@ -71,7 +71,7 @@ const TaskCom = () => {
           <div className="container">
             <div className="row task-header">
               <div className="flex-start">
-                <h1>Task</h1>
+                <h1>Project</h1>
               </div>
               <div className="flex-end">
                 <button

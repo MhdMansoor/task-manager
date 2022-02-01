@@ -36,7 +36,12 @@ const RouterComponent = () => {
         />
         <PrivateRoute
           exact
-          path="/add"
+          path="/task/edit/:id"
+          component={(props) => <Add {...props} />}
+        />
+        <PrivateRoute
+          exact
+          path="/task/add"
           component={(props) => <Add {...props} />}
         />
         <PrivateRoute

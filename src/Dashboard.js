@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./assets/styles/common.css";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -118,7 +118,7 @@ const Dashboard = () => {
                   <Search searchText={searchText} search={handleSearch} />{" "}
                   <button
                     className="header-btn"
-                    onClick={() => history.push("/add")}
+                    onClick={() => history.push("/task/add")}
                   >
                     Add Task
                   </button>

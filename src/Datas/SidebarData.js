@@ -9,7 +9,7 @@ export const SidebarData = [
     link: "/dashboard",
   },
   {
-    title: "Task",
+    title: "Project",
     icon: <TaskRounded />,
     link: "/task",
   },
