@@ -11,9 +11,11 @@ import { Card } from "./components/Card";
 import { getproject } from "./utils/projecr-services";
 import "./assets/styles/filter.css";
 import { useHistory } from "react-router-dom";
+import useTranslation from "./CHC/translations";
 
 const TaskCom = () => {
   let history = useHistory();
+  const translation = useTranslation();
   const [projectList, setProjectList] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [sortValue, setSortValue] = useState("");
@@ -71,14 +73,14 @@ const TaskCom = () => {
           <div className="container">
             <div className="row task-header">
               <div className="flex-start">
-                <h1>Project</h1>
+                <h1>{translation.project}</h1>
               </div>
               <div className="flex-end">
                 <button
                   className="header-btn"
                   onClick={() => history.push("/project")}
                 >
-                  Project
+                  {translation.project}
                 </button>
               </div>
             </div>
@@ -90,13 +92,13 @@ const TaskCom = () => {
                                 Sort by: 
                             </div> */}
               <div className="col-md-6 flex-end">
-                <span className="no-break"> Sort by:</span>
+                <span className="no-break">{translation.sortBy}</span>
                 <div className="form-group">
                   <div className="select-arrow">
                     <select
                       name="sortByName"
                       onChange={handleSortByName}
-                      value={sortValue || "All"}
+                      value={sortValue || translation.all}
                     >
                       <option value="">All</option>
                       {projectList &&

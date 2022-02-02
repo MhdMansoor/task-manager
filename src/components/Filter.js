@@ -3,8 +3,10 @@ import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import "../assets/styles/filter.css";
 import "../assets/styles/checkbutton.css";
+import useTranslation from "../CHC/translations";
 
 const Filter = (props) => {
+  const translation = useTranslation();
   const {
     handleFilter,
     filterText,
@@ -15,13 +17,13 @@ const Filter = (props) => {
   } = props;
   return (
     <div className="filter">
-      <h3>Filters</h3>
+      <h3>{translation.filters}</h3>
       <div className="filter-row">
-        <p>Project Name</p>
+        <p>{translation.projectName}</p>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Search Project Name"
+            placeholder={translation.SearchProjectName}
             name="search"
             value={filterText}
             onChange={handleFilter}
@@ -29,9 +31,9 @@ const Filter = (props) => {
         </div>
       </div>
       <div className="filter-row">
-        <p>Status</p>
+        <p>{translation.status}</p>
         <label className="checkmark-container">
-          active
+          {translation.active}
           <input
             type="radio"
             value="active"
@@ -42,7 +44,7 @@ const Filter = (props) => {
           <span className="checkmark"></span>
         </label>
         <label className="checkmark-container">
-          inactive
+          {translation.inactive}
           <input
             type="radio"
             value="inactive"
@@ -73,11 +75,11 @@ const Filter = (props) => {
         <div className="filter-button">
           <button className="btn" onClick={clickApplyFilter}>
             <FilterAltIcon />
-            Apply filters
+            {translation.applyFilter}
           </button>
           <button className="btn" onClick={clearFilter}>
             <FilterAltOffIcon />
-            Clear filters
+            {translation.clearFilter}
           </button>
         </div>
       </div>

@@ -1,5 +1,7 @@
+import useTranslation from "../CHC/translations";
 const Search = (props) => {
   const { search, searchText, ...rest } = props;
+  const translation = useTranslation();
   return (
     <div className="search-input text-right">
       <div className="form-group">
@@ -7,7 +9,7 @@ const Search = (props) => {
           type="text"
           name="search"
           value={searchText}
-          placeholder="Search something..."
+          placeholder={translation.SearchSome}
           onChange={search}
         />
       </div>

@@ -8,8 +8,10 @@ import Pagination from "./components/Pagination";
 import Search from "./components/Search";
 import { useHistory } from "react-router-dom";
 import { gettask, deletetask } from "./utils/task-services";
+import useTranslation from "./CHC/translations";
 let PageSize = 10;
 const Dashboard = () => {
+  const translation = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [filterText, setFilterText] = useState("");
@@ -120,7 +122,7 @@ const Dashboard = () => {
                     className="header-btn"
                     onClick={() => history.push("/task/add")}
                   >
-                    Add Task
+                    {translation.addTask}
                   </button>
                 </div>
                 {currentTableData && (

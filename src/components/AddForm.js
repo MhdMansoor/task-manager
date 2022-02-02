@@ -4,9 +4,11 @@ import { useHistory } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { createtask, edittask } from "../utils/task-services";
+import useTranslation from "../CHC/translations";
 
 const AddForm = (props) => {
   const { initialValues, ...rest } = props;
+  const translation = useTranslation();
   let history = useHistory();
 
   const [formValues, setFormValues] = useState(initialValues);
@@ -113,32 +115,32 @@ const AddForm = (props) => {
 
   return (
     <div className="addtask-form form-border">
-      <h1>Task</h1>
+      <h1>{translation.task}</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Project Name</label>
+          <label>{translation.projectName}</label>
           <input
             type="text"
             name="projectName"
-            placeholder="Eg:  Project Name"
+            placeholder={`Eg:  ${translation.projectName}`}
             value={formValues.projectName}
             onChange={handleChange}
           />
           <p className="error">{formErrors.projectName}</p>
         </div>
         <div className="form-group">
-          <label>Task Name</label>
+          <label>{translation.taskName}</label>
           <input
             type="text"
             name="taskName"
-            placeholder="Eg: Task Name."
+            placeholder={`Eg: ${translation.taskName}.`}
             value={formValues.taskName}
             onChange={handleChange}
           />
           <p className="error">{formErrors.taskName}</p>
         </div>
         <div className="form-group">
-          <label>Start Date</label>
+          <label>{translation.startDate}</label>
           <input
             type="datetime-local"
             name="startDate"
@@ -148,7 +150,7 @@ const AddForm = (props) => {
           <p className="error">{formErrors.startDate}</p>
         </div>
         <div className="form-group">
-          <label>End Date</label>
+          <label>{translation.enddate}</label>
           <input
             type="datetime-local"
             name="endDate"
@@ -159,16 +161,16 @@ const AddForm = (props) => {
           <p className="error">{formErrors.endDate}</p>
         </div>
         <div className="form-group">
-          <label>Status</label>
+          <label>{translation.status}</label>
           <div className="select-arrow">
             <select
               name="status"
               value={formValues.status}
               onChange={handleChange}
             >
-              <option value="">Project Status</option>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
+              <option value="">{translation.status}</option>
+              <option value="active">{translation.active}</option>
+              <option value="inactive">{translation.inactive}</option>
             </select>
             <span>
               <KeyboardArrowDownIcon />
@@ -178,14 +180,14 @@ const AddForm = (props) => {
         </div>
 
         <div className="form-group">
-          <label>Developer</label>
+          <label>{translation.developer}</label>
           <div className="select-arrow">
             <select
               name="developer"
               value={formValues.developer}
               onChange={handleChange}
             >
-              <option value=""> Select Developer</option>
+              <option value="">{translation.selectDeveloper}</option>
               {devArray &&
                 devArray.map((ele) => (
                   <option key={ele._id} value={ele._id.toString()}>
@@ -201,7 +203,7 @@ const AddForm = (props) => {
         </div>
 
         <div className="form-group">
-          <input type="submit" value="Add Task" />
+          <input type="submit" value={translation.addTask} />
         </div>
       </form>
     </div>

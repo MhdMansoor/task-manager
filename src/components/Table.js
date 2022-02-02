@@ -3,9 +3,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/table.css";
-
+import useTranslation from "../CHC/translations";
 const Table = (props) => {
   const { taskData, deleteTask, ...rest } = props;
+  const translation = useTranslation();
   let history = useHistory();
   const editTask = (data) => {
     history.push(`/task/edit/${data._id}`, { ...data });
@@ -14,14 +15,14 @@ const Table = (props) => {
     <table>
       <thead>
         <tr>
-          <th>SI.No</th>
-          <th>Project Name</th>
-          <th>Task Name</th>
-          <th>Status</th>
-          <th>Progress</th>
-          <th>Completion Date</th>
-          <th>Project Assignee</th>
-          <th>Actions</th>
+          <th>{translation.SINo}</th>
+          <th>{translation.projectName}</th>
+          <th>{translation.taskName}</th>
+          <th>{translation.status}</th>
+          <th>{translation.progress}</th>
+          <th>{translation.completionDate}</th>
+          <th>{translation.projectAssignee}</th>
+          <th>{translation.action}</th>
         </tr>
       </thead>
       <tbody>
@@ -170,10 +171,10 @@ const Table = (props) => {
                 </button>
                 <div className="dropdown-content">
                   <button className="btn" onClick={() => editTask(ele)}>
-                    <EditIcon /> &nbsp;Edit
+                    <EditIcon /> &nbsp;{translation.edit}
                   </button>
                   <button className="btn" onClick={() => deleteTask(ele._id)}>
-                    <DeleteIcon /> &nbsp;Delete
+                    <DeleteIcon /> &nbsp;{translation.delete}
                   </button>
                 </div>
               </td>
