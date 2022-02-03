@@ -4,13 +4,18 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/table.css";
 import useTranslation from "../CHC/translations";
+import { useLanguageContext } from "../contexts/LanguageContext";
+
 const Table = (props) => {
   const { taskData, deleteTask, ...rest } = props;
   const translation = useTranslation();
+  const { language } = useLanguageContext();
+  console.log(language);
   let history = useHistory();
   const editTask = (data) => {
     history.push(`/task/edit/${data._id}`, { ...data });
   };
+
   return (
     <table>
       <thead>
