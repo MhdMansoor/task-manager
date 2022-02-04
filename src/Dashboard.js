@@ -9,6 +9,8 @@ import Search from "./components/Search";
 import { useHistory } from "react-router-dom";
 import { gettask, deletetask } from "./utils/task-services";
 import useTranslation from "./CHC/translations";
+import { useDispatch, useSelector } from "react-redux";
+import { featchTask } from "./redux/actions/taskActions";
 let PageSize = 10;
 const Dashboard = () => {
   const translation = useTranslation();
@@ -17,25 +19,28 @@ const Dashboard = () => {
   const [filterText, setFilterText] = useState("");
   const [filterRadioValue, setFilterRadioValue] = useState("");
   const history = useHistory();
-  const [taskData, setTaskData] = useState(null);
-  const getTask = async () => {
-    const { data, status, error } = await gettask();
-    if (error) {
-      console.log(status);
-    } else if (status === 200 && data) {
-      setTaskData(data.data);
-    }
-  };
+  //const [taskData, setTaskData] = useState(null);
+  let lists = useSelector((state) => state.allTasks.tasks);
+  const [taskData, setTaskData] = useState(lists);
+  const dispatch = useDispatch();
+  // const getTask = async () => {
+  //   const { data, status, error } = await gettask();
+  //   if (error) {
+  //     console.log(status);
+  //   } else if (status === 200 && data) {
+  //     setTaskData(data.data);
+  //   }
+  // };
   const deleteTask = async (id) => {
     const { data, status, error } = await deletetask(id);
     if (error) {
       console.log(status);
     } else if (status === 200 && data) {
-      getTask();
+      dispatch(featchTask());
     }
   };
   useEffect(() => {
-    getTask();
+    dispatch(featchTask());
   }, []);
   let currentTableData;
   currentTableData = useMemo(() => {
@@ -92,7 +97,8 @@ const Dashboard = () => {
   };
   const clearFilter = () => {
     if (filterText || filterRadioValue) {
-      getTask();
+      dispatch(featchTask());
+      setTaskData(lists);
       setFilterText("");
       setFilterRadioValue("");
     }

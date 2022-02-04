@@ -1,10 +1,12 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/table.css";
 import useTranslation from "../CHC/translations";
 import { useLanguageContext } from "../contexts/LanguageContext";
+import { selectedTask } from "../redux/actions/taskActions";
 
 const Table = (props) => {
   const { taskData, deleteTask, ...rest } = props;
@@ -12,8 +14,11 @@ const Table = (props) => {
   const { language } = useLanguageContext();
   console.log(language);
   let history = useHistory();
+  const dispatch = useDispatch();
+
   const editTask = (data) => {
-    history.push(`/task/edit/${data._id}`, { ...data });
+    dispatch(selectedTask(data));
+    history.push(`/task/edit/${data._id}`);
   };
 
   return (

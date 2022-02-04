@@ -12,25 +12,30 @@ import { getproject } from "./utils/projecr-services";
 import "./assets/styles/filter.css";
 import { useHistory } from "react-router-dom";
 import useTranslation from "./CHC/translations";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProjectLists } from "./redux/actions/projectActions";
 
 const TaskCom = () => {
   let history = useHistory();
+  let proData = useSelector((state) => state.projects.projectData);
+  console.log(proData);
+  const dispatch = useDispatch();
   const translation = useTranslation();
-  const [projectList, setProjectList] = useState(null);
+  const [projectList, setProjectList] = useState(proData);
   const [searchText, setSearchText] = useState("");
   const [sortValue, setSortValue] = useState("");
   const [dataFromSearchOrFilter, setDataFromSearchOrFilter] = useState(null);
-  const getProject = async () => {
-    const { data, status, error } = await getproject();
+  // const getProject = async () => {
+  //   const { data, status, error } = await getproject();
 
-    if (error) {
-      console.log(status);
-    } else if (status === 200 && data) {
-      setProjectList(data);
-    }
-  };
+  //   if (error) {
+  //     console.log(status);
+  //   } else if (status === 200 && data) {
+  //     setProjectList(data);
+  //   }
+  // };
   useEffect(() => {
-    getProject();
+    dispatch(fetchProjectLists());
   }, []);
   const handleSearch = (e) => {
     setSortValue("");

@@ -5,26 +5,26 @@ import Sidebar from "./components/Sidebar";
 import AddForm from "./components/AddForm";
 
 const Add = (props) => {
-  let data = props.location.state !== undefined ? props.location.state : "";
-  let initialValues = {
-    projectName: "",
-    taskName: "",
-    startDate: "",
-    endDate: "",
-    status: "",
-    developer: "",
-  };
-  useEffect(() => {
-    if (data) {
-      initialValues.taskName = data.taskName;
-      initialValues.projectName = data.projectName;
-      initialValues.startDate = data.startDate;
-      initialValues.endDate = data.endDate;
-      initialValues.status = data.status;
-      initialValues.developer = data.developer._id;
-      initialValues.id = data._id;
-    }
-  }, [data]);
+  // let data = props.location.state !== undefined ? props.location.state : "";
+  // let initialValues = {
+  //   projectName: "",
+  //   taskName: "",
+  //   startDate: "",
+  //   endDate: "",
+  //   status: "",
+  //   developer: "",
+  // };
+  // useEffect(() => {
+  //   if (data) {
+  //     initialValues.taskName = data.taskName;
+  //     initialValues.projectName = data.projectName;
+  //     initialValues.startDate = data.startDate;
+  //     initialValues.endDate = data.endDate;
+  //     initialValues.status = data.status;
+  //     initialValues.developer = data.developer._id;
+  //     initialValues.id = data._id;
+  //   }
+  // }, [data]);
 
   return (
     <div>
@@ -33,7 +33,7 @@ const Add = (props) => {
         <Sidebar />
         <div className="side-component">
           <div className="container">
-            <AddForm initialValues={initialValues} />
+            <AddForm />
           </div>
         </div>
       </div>

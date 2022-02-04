@@ -5,11 +5,39 @@ import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { createtask, edittask } from "../utils/task-services";
 import useTranslation from "../CHC/translations";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { removeSelectedTask } from "../redux/actions/taskActions";
 
 const AddForm = (props) => {
-  const { initialValues, ...rest } = props;
+  // const { initialValues, ...rest } = props;
+  const { id } = useParams();
+  const dispatch = useDispatch();
   const translation = useTranslation();
+  let data = useSelector((state) => state.task);
   let history = useHistory();
+  let initialValues = {
+    projectName: "",
+    taskName: "",
+    startDate: "",
+    endDate: "",
+    status: "",
+    developer: "",
+  };
+  useEffect(() => {
+    if (data && id) {
+      initialValues.taskName = data.taskName;
+      initialValues.projectName = data.projectName;
+      initialValues.startDate = data.startDate;
+      initialValues.endDate = data.endDate;
+      initialValues.status = data.status;
+      initialValues.developer = data.developer._id;
+      initialValues.id = data._id;
+    }
+    return () => {
+      dispatch(removeSelectedTask());
+    };
+  }, [data, id]);
 
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});

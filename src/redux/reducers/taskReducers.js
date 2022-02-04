@@ -1,13 +1,15 @@
 import { ActionTypes } from "../constants/actionType";
 
 const intialState = {
-  products: [],
+  tasks: [],
 };
 
 export const taskReducer = (state = intialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_TASK:
-      return { ...state, products: payload };
+      return { ...state, tasks: payload };
+    case ActionTypes.FETCH_TASKS:
+      return { ...state, tasks: payload };
     default:
       return state;
   }
