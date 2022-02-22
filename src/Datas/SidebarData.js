@@ -1,3 +1,4 @@
+import { TaskRounded } from "@mui/icons-material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
@@ -8,8 +9,8 @@ export const SidebarData = [
     link: "/dashboard",
   },
   {
-    title: "Add",
-    icon: <AddCircleOutlineIcon />,
-    link: "/add",
+    title: "Project",
+    icon: <TaskRounded />,
+    link: "/task",
   },
 ];

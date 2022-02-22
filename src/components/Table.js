@@ -1,25 +1,42 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "../assets/styles/table.css";
+import useTranslation from "../CHC/translations";
+import { useLanguageContext } from "../contexts/LanguageContext";
+import { selectedTask } from "../redux/actions/taskActions";
 
-const Table = () => {
+const Table = (props) => {
+  const { taskData, deleteTask, ...rest } = props;
+  const translation = useTranslation();
+  const { language } = useLanguageContext();
+  console.log(language);
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  const editTask = (data) => {
+    dispatch(selectedTask(data));
+    history.push(`/task/edit/${data._id}`);
+  };
+
   return (
     <table>
       <thead>
         <tr>
-          <th>SI.No</th>
-          <th>Project Name</th>
-          <th>Task Name</th>
-          <th>Status</th>
-          <th>Progress</th>
-          <th>Completion Date</th>
-          <th>Project Assignee</th>
-          <th>Actions</th>
+          <th>{translation.SINo}</th>
+          <th>{translation.projectName}</th>
+          <th>{translation.taskName}</th>
+          <th>{translation.status}</th>
+          <th>{translation.progress}</th>
+          <th>{translation.completionDate}</th>
+          <th>{translation.projectAssignee}</th>
+          <th>{translation.action}</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        {/* <tr>
           <td data-heading="SI.NO">1</td>
           <td data-heading="Project Name">Project Name</td>
           <td data-heading="Task Name">Task Name</td>
@@ -139,7 +156,45 @@ const Table = () => {
               </button>
             </div>
           </td>
-        </tr>
+        </tr> */}
+        {taskData.length > 0 ? (
+          taskData.map((ele, index) => (
+            <tr key={index}>
+              <td data-heading="SI.NO">{index + 1}</td>
+              <td data-heading="Project Name">{ele.projectName}</td>
+              <td data-heading="Task Name">{ele.taskName}</td>
+              <td data-heading="Status" className={ele.status}>
+                {ele.status}
+              </td>
+              <td dta-heading="Progress">Progress</td>
+              <td data-heading="Completion Date">
+                {Date(ele.endDate)
+                  .split(" ")
+                  .splice(1, 3)
+                  .toString()
+                  .replace(/,/g, " ")}
+              </td>
+              <td data-heading="Project Assignee">{ele.developer.name}</td>
+              <td className="dropdown">
+                <button className="dropbtn">
+                  <MoreVertIcon />
+                </button>
+                <div className="dropdown-content">
+                  <button className="btn" onClick={() => editTask(ele)}>
+                    <EditIcon /> &nbsp;{translation.edit}
+                  </button>
+                  <button className="btn" onClick={() => deleteTask(ele._id)}>
+                    <DeleteIcon /> &nbsp;{translation.delete}
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr className="no-data">
+            <td colSpan={"8"}>No Data Found</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
